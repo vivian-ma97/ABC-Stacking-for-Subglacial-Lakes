@@ -1,0 +1,5 @@
+Dataset
+The radar data used in this project are publicly available from the Center for Remote Sensing of Ice Sheets (CReSIS). Specifically, we utilize the dataset from the 2009 Antarctica TO Gambit campaign, which can be accessed at the following link:
+https://data.cresis.ku.edu/data/rds/2009_Antarctica_TO_Gambit/
+
+Please refer to the CReSIS Data Access Policy before using the dataset.
