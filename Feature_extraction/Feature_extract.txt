@@ -1,1 +1,2 @@
-
+1. Define Eight Features.
+TFF, BRP, CBRP, Hydraulic, Hydraulic head gradient, roughness, ice thickness, bed elevation
