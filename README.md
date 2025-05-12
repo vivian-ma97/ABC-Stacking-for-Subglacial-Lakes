@@ -31,15 +31,14 @@ This will:
    
 📧 Contact
 For questions or suggestions, please contact: qianma@tongji.edu.cn
+
 📄 License and Usage Notice
 This project is released under the MIT License; however, it is currently under peer review.
 - 📖 The source code is provided solely for academic review and evaluation purposes during the peer review process.
 - ❗ Please do not  redistribute, or use the code for any commercial purposes at this stage.
 - 📅 The code will be fully and officially open-sourced under the MIT License upon completion of the peer review.
-- 
+  
 📜 MIT License
-
-MIT License
 
 Copyright (c) 2025 Qian M.
 
