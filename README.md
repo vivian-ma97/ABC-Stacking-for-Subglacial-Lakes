@@ -16,7 +16,7 @@ Ensure the following CSV files are placed in the training/ directory:
 - all_w_validation.csv – Validation and test dataset.
   
 CSV Column Requirements:
-- Features: STFT, CBRP, Bedrock elevation, Hydraulic gradient, Roughness
+- Features: TFF, CBRP, Bed elevation, Hydraulic gradient, Roughness
 - Label: Label
 Please create the training and validation datasets according to your specific needs or based on the data distribution described in my paper.
 
