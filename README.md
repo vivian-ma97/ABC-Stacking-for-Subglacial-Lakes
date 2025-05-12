@@ -26,7 +26,7 @@ This will:
 1. Load the datasets.
 2. Run ABC optimization to select the best stacking configuration.
 3. Train the final stacking model.
-4. Evaluate the model on the test set and output the Macro F1 score.
+4. Evaluate the model on the test set and output the F1 score.
 5. Save the trained model as abc_stacking_model.pkl.
    
 📧 Contact
