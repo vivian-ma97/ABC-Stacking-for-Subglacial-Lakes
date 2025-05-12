@@ -1,2 +1,3 @@
 1. Define Eight Features.
 TFF, BRP, CBRP, Hydraulic, Hydraulic head gradient, roughness, ice thickness, bed elevation
+2. No matter whether it is the training, validation, or test set, if you want to extract features, please use the make_feature.m script.
