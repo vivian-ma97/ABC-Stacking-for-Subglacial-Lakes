@@ -1,2 +1,2 @@
 
-If you want to use the ABC optimization algorithm to select models, you can refer to our provided code file ABC-Stacking.py. If you only want to validate the performance of our ABC-selected models in the AGAP region, you can execute after_ABC_selected_test.py.
+If you want to use the ABC optimization algorithm to select models, you can refer to our provided code file ABC-Stacking.py. 
