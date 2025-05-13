@@ -242,7 +242,8 @@ if __name__ == "__main__":
     train_data = pd.read_csv('dataset_ratio_1_to_100_0.csv')
     test_data = pd.read_csv('all_w_validation.csv')
 
-    features = ['STFT', 'CBRP', 'Bedrock elevation', 'Hydraulic gradient', 'Roughness']
+    features = ['STFT', 'CBRP', 'Bedrock elevation', 'Hydraulic gradient', 'Roughness'] 
+    #[TFF, CBRP, Bedrock elevation, Hydraulic gradient, Roughness]
     X_train = train_data[features].values
     y_train = train_data['Label'].values
     X_test = test_data[features].values
