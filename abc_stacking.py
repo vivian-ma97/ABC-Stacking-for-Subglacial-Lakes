@@ -23,10 +23,11 @@ import matplotlib.pyplot as plt
 
 class ABCStacking:
     def __init__(self, n_employed_bees=10, n_onlooker_bees=10, max_iter=100,
-                 random_state=42):
+                 base_model_count=3, random_state=42):
         self.n_employed_bees = n_employed_bees
         self.n_onlooker_bees = n_onlooker_bees
         self.max_iter = max_iter
+        self.base_model_count = base_model_count  # 新增基模型数量参数
         self.random_state = random_state
         np.random.seed(random_state)
         random.seed(random_state)
@@ -54,7 +55,7 @@ class ABCStacking:
         self.history = []
 
     def generate_random_solution(self):
-        base_selected = random.sample(self.base_learners, 3)
+        base_selected = random.sample(self.base_learners, self.base_model_count)
         meta_selected = random.choice(self.meta_learners)
         return {
             'base': [clone(model) for model in base_selected],
@@ -70,13 +71,7 @@ class ABCStacking:
             stacking_model.fit(X, y)
             y_pred = stacking_model.predict(X)
             f1 = f1_score(y, y_pred, average='macro')
-
-            # Fitness function
-            if f1 >= 0:
-                fitness = 1 / (1 + f1)
-            else:
-                fitness = 1 + abs(f1)
-
+            fitness = 1 / (1 + f1) if f1 >= 0 else 1 + abs(f1)
             return f1, fitness
         except Exception as e:
             print(f"[Warning] Evaluation failed: {e}")
@@ -100,7 +95,7 @@ class ABCStacking:
             }
 
             if optimize_base_only:
-                replace_idx = random.randint(0, 2)
+                replace_idx = random.randint(0, self.base_model_count - 1)
                 new_base = random.choice(self.base_learners)
                 while type(new_base) == type(new_solution['base'][replace_idx]):
                     new_base = random.choice(self.base_learners)
@@ -134,7 +129,7 @@ class ABCStacking:
             }
 
             if optimize_base_only:
-                replace_idx = random.randint(0, 2)
+                replace_idx = random.randint(0, self.base_model_count - 1)
                 new_base = random.choice(self.base_learners)
                 while type(new_base) == type(new_solution['base'][replace_idx]):
                     new_base = random.choice(self.base_learners)
@@ -175,7 +170,6 @@ class ABCStacking:
             population[i]['f1'] = f1
             population[i]['fitness'] = fitness
 
-        # Phase 1: Optimize Base Models
         for iteration in tqdm(range(int(self.max_iter * 0.7)), desc="Optimizing Base Models"):
             population = self.employed_bee_phase(population, X, y, optimize_base_only=True)
             population = self.onlooker_bee_phase(population, X, y, optimize_base_only=True)
@@ -196,7 +190,6 @@ class ABCStacking:
                 'meta_model': type(current_best['meta']).__name__
             })
 
-        # Phase 2: Optimize Meta Learner
         for iteration in tqdm(range(int(self.max_iter * 0.3)), desc="Optimizing Meta Learner"):
             population = self.employed_bee_phase(population, X, y, optimize_base_only=False)
             population = self.onlooker_bee_phase(population, X, y, optimize_base_only=False)
@@ -242,14 +235,13 @@ if __name__ == "__main__":
     train_data = pd.read_csv('dataset_ratio_1_to_100_0.csv')
     test_data = pd.read_csv('all_w_validation.csv')
 
-    features = ['STFT', 'CBRP', 'Bedrock elevation', 'Hydraulic gradient', 'Roughness'] 
-    #[TFF, CBRP, Bedrock elevation, Hydraulic gradient, Roughness]
+    features = ['TFF', 'CBRP', 'Basal elevation', 'Hydraulic gradient', 'Roughness']
     X_train = train_data[features].values
     y_train = train_data['Label'].values
     X_test = test_data[features].values
     y_test = test_data['Label'].values
 
-    abc = ABCStacking(n_employed_bees=10, n_onlooker_bees=10, max_iter=100)
+    abc = ABCStacking(n_employed_bees=10, n_onlooker_bees=10, max_iter=100, base_model_count=4)
     best_config = abc.optimize(X_train, y_train)
 
     print("\nBest Configuration:")
@@ -270,4 +262,3 @@ if __name__ == "__main__":
     print(f"\nTest F1 Score: {test_f1:.4f} (Threshold = {best_threshold:.4f})")
     joblib.dump(final_model, 'abc_stacking_model.pkl')
     print("Model saved as 'abc_stacking_model.pkl'.")
-
