@@ -33,7 +33,7 @@ This will:
 5. Save the trained model as abc_stacking_model.pkl.
    
 📧 Contact
-For questions or suggestions, please contact: qianma@tongji.edu.cn without any hesitation.
+For questions or suggestions, please contact: qianma@tongji.edu.cn without any hesitation. If you encounter any issues while using the code, feel free to open an issue. I’m also available to provide remote assistance to help you get the code running successfully.
 
 📄 License and Usage Notice
 This project is released under the MIT License; however, it is currently under peer review.
